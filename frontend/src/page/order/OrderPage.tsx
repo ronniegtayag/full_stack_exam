@@ -1,21 +1,19 @@
 import { useState } from "react";
 import ItemSelector from "../../components/itemDropdown";
+import CustomerInfo from "../../components/CustomerInfo";
+import { OrderProvider } from "../../context/OrderContext";
+import { useOrderContext } from "../../context/useOrderContext";
 import { OrderService } from "../../service/order.service";
 import type {
-  Customer,
   OrderResult,
   SelectedItem,
-  OrderTypeError,
   OrderResultLabel,
 } from "../../types/order.type";
 import "./orderPage.css";
 
-export default function OrderPage() {
+function OrderPageContent() {
+  const { customer, setCustomer, setHasError } = useOrderContext();
   const [items, setItems] = useState<SelectedItem[]>([]);
-  const [customer, setCustomer] = useState<Customer>({
-    name: "",
-    email: "",
-  });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"initial" | "sending" | "confirmed">(
     "initial",
@@ -25,11 +23,6 @@ export default function OrderPage() {
     total: 0,
     reason: "",
     status: "NONE",
-  });
-
-  const [hasError, setHasError] = useState<OrderTypeError>({
-    type: "NONE",
-    message: "",
   });
 
   const handleAddItem = (id: string) => {
@@ -107,59 +100,15 @@ export default function OrderPage() {
 
   const reset = () => {
     setItems([]);
-    setCustomer({
-      name: "",
-      email: "",
-    });
-    setHasError({
-      type: "NONE",
-      message: "",
-    });
-    setOrderResult({
-      orderId: "",
-      total: 0,
-      reason: "",
-      status: "NONE",
-    });
+    setCustomer({ name: "", email: "" });
+    setHasError({ type: "NONE", message: "" });
+    setOrderResult({ orderId: "", total: 0, reason: "", status: "NONE" });
     setStatus("initial");
   };
 
   return (
     <div className="container">
-      <div className="customerInputContainer">
-        <h3>Customer Information</h3>
-        <div className="customerInput">
-          <span style={{ fontSize: "12px" }}>Name &nbsp;</span>
-          <input
-            type="text"
-            value={customer.name}
-            onChange={(e) => {
-              setCustomer((prev) => ({ ...prev, name: e.target.value || "" }));
-              setHasError({
-                type: "NONE",
-                message: "",
-              });
-            }}
-          />
-        </div>
-        <div className="customerInput">
-          <span style={{ fontSize: "12px" }}>Email &nbsp;</span>
-          <input
-            type="email"
-            value={customer.email}
-            onChange={(e) => {
-              setCustomer((prev) => ({ ...prev, email: e.target.value || "" }));
-              setHasError({
-                type: "NONE",
-                message: "",
-              });
-            }}
-          />
-        </div>
-        {hasError.type === "CLIENT_ERROR" && (
-          <span className="error">Error: {hasError.message}</span>
-        )}
-      </div>
+      <CustomerInfo />
 
       <div className="subContainer">
         <h3>Create Order</h3>
@@ -225,5 +174,13 @@ export default function OrderPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function OrderPage() {
+  return (
+    <OrderProvider>
+      <OrderPageContent />
+    </OrderProvider>
   );
 }
