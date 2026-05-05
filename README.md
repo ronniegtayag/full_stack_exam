@@ -1,6 +1,7 @@
 ## How to run the application
 
-
+1. Backend - npm run backend
+2. Frontend - npm run frontend
 
 ## How you structured the backend and frontend
 
