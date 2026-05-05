@@ -1,0 +1,13 @@
+{
+  "name": "node-exam",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend": "cd backend && npm install && npm run build && npm start",
+    "frontend": "cd frontend && npm install && npm run build && serve -s dist -l 3000"
+  },
+  "author": "",
+  "license": "ISC"
+}
