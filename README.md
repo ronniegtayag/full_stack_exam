@@ -3,6 +3,102 @@
 1. Backend - npm run backend
 2. Frontend - npm run frontend
 
+# Coding Challenge: Simple Order
+
+## Submission (Full-Stack)
+
+### Overview
+
+Build a small full-stack application that allows a user to submit an order and receive an
+order status response.
+
+## Technical Requirements
+
+Backend: Node.js
+Frontend: React
+Language: TypeScript
+Storage: In-memory only (no database)
+Testing: Unit/integration tests expected
+
+## Part 1: Backend
+
+### API Specification
+
+Endpoint:
+POST /orders
+
+This is the only backend API required.
+
+```
+Request Body
+{
+   "items": [
+      { "id": "item_1", "quantity": 2 },
+      { "id": "item_2", "quantity": 1 }
+   ],
+   "customer": {
+      "name": "Jane Doe",
+      "email": "jane@example.com"
+   }
+}
+```
+
+## Expected Behavior
+
+## The API should:
+
+1. Validate the request:
+
+- At least one item must be provided
+- Item quantity must be greater than 0
+- Customer name and email are required
+
+2. Calculate a total price (item prices may be hard-coded or mocked)
+3. Simulate order processing:
+
+- Orders above a chosen threshold should be REJECTED
+- All others should be CONFIRMED
+
+4. Return a structured response
+
+```
+   Response – Confirmed Order
+   {
+      "orderId": "ord_123",
+      "status": "CONFIRMED",
+      "total": 4200
+   }
+
+   Response – Rejected Order
+   {
+      "orderId": "ord_123",
+      "status": "REJECTED",
+      "reason": "ORDER_TOTAL_TOO_HIGH"
+   }
+```
+
+## Part 2: Frontend
+
+### UI Requirements
+
+Build a simple user interface that allows a user to:
+
+1. Enter customer name and email
+2. Add one or more items with quantities
+3. Submit the order
+4. See loading, success, or error states
+
+## Out of Scope
+
+### The following are not required:
+
+- Databases or persistence
+- Authentication
+- Multiple backend endpoints
+- Third-party services or APIs
+- UI polish or advanced styling
+- A basic, functional UI is sufficient.
+
 ## How you structured the backend and frontend
 
 I structured the backend using an MVC pattern with a service layer to separate concerns. The routes handle API endpoints, controllers manage request and response flow, and the service layer contains the core business logic. I also used middleware for validation and DTOs to enforce type safety between requests and responses.
