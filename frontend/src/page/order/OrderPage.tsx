@@ -47,6 +47,10 @@ function OrderPageContent() {
     );
   };
 
+  const removeItem = (id: string) => {
+    setItems((prev) => prev.filter((i) => i.id !== id));
+  };
+
   const formatOrderResult = (orderResult: OrderResult) => {
     let result: OrderResultLabel = {
       "Order Id": orderResult.orderId || "",
@@ -137,6 +141,7 @@ function OrderPageContent() {
                 >
                   +{" "}
                 </button>
+                <button onClick={() => removeItem(item.id)}>Remove</button>
               </div>
             </div>
           ))}

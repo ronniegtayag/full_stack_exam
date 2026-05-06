@@ -53,19 +53,18 @@
 
 .itemResult{
   border: 1px dashed gray;
-  width: 200px;
   display: flex;
-  gap: 10;
+  gap: 8px;
   align-items: center;
-  padding: 8;
-  margin: 2;
+  padding: 8px;
+  margin: 2px;
   justify-content: space-between;
 }
 
 .itemResultButtons{
   display: flex;
-  width: 80px;
   justify-content: space-between;
+  gap:8px;
 }
 
 .resultStatusContainer{
